@@ -13,6 +13,7 @@ pub struct HttpConfig {
 pub struct Bpp {
     pub id: String,
     pub caller_uri: String,
+    pub bpp_uri: String,
     pub domain: String,
     pub version: String,
     pub ttl: String,

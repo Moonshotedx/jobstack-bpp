@@ -15,7 +15,8 @@ pub async fn send_to_bpp_caller(
         .and_then(|ctx| ctx.get("transaction_id"))
         .and_then(|v| v.as_str())
         .unwrap_or("unknown_txn");
-    let full_action = format!("on{}", action);
+    let full_action = format!("on_{}", action);
+    
     let bap_id = payload
         .get("context")
         .and_then(|ctx| ctx.get("bap_id"))

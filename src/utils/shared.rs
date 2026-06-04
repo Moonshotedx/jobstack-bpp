@@ -15,13 +15,38 @@ pub async fn send_to_bpp_caller(
         .and_then(|ctx| ctx.get("transaction_id"))
         .and_then(|v| v.as_str())
         .unwrap_or("unknown_txn");
-    let full_action = format!("on_{}", action);
+    let full_action = format!("on{}", action);
+    let bap_id = payload
+        .get("context")
+        .and_then(|ctx| ctx.get("bap_id"))
+        .and_then(|v| v.as_str())
+        .unwrap_or("unknown_bap_id");
+     let bap_uri = payload
+        .get("context")
+        .and_then(|ctx| ctx.get("bap_uri"))
+        .and_then(|v| v.as_str())
+        .unwrap_or("unknown_bap_uri");
+
+    let bpp_id = payload
+        .get("context")
+        .and_then(|ctx| ctx.get("bpp_id"))
+        .and_then(|v| v.as_str())
+        .unwrap_or("unknown_bap_id");
+     let bpp_uri = payload
+        .get("context")
+        .and_then(|ctx| ctx.get("bpp_uri"))
+        .and_then(|v| v.as_str())
+        .unwrap_or("unknown_bap_uri");
 
     info!(
         target: "bpp",
-         "🟡 [BPP → Adapter] Sending request | action: {}, txn_id: {}",
+         "🟡 [BPP → Adapter] Sending request | action: {}, txn_id: {} , bap_id: {}, bap_uri: {} , bpp_id: {}, bpp_uri: {}",
         full_action,
-        txn_id
+        txn_id,
+        bap_id,
+        bap_uri,
+        bpp_id,
+        bpp_uri
     );
     info!(target: "bpp", "──────────────────────────────────────────────");
 

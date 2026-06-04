@@ -1,6 +1,6 @@
+use tracing::info;
 use tracing_appender::{non_blocking::WorkerGuard, rolling};
 use tracing_subscriber::{fmt, fmt::time::UtcTime, prelude::*, EnvFilter};
-
 pub fn setup_logging(log_dir: &str, svc: &str) -> WorkerGuard {
     let log_file_name = format!("{}.log", svc);
 
@@ -30,4 +30,15 @@ pub fn setup_logging(log_dir: &str, svc: &str) -> WorkerGuard {
     .expect("Failed to set global subscriber");
 
     file_guard
+}
+
+pub fn log_cron_job(icon: &str, message: &str) {
+    let content = format!("{} {}", icon, message);
+
+    let width = 44;
+    let padded = format!("{:<width$}", content, width = width - 2);
+
+    info!(target: "cron", "╔{}╗", "═".repeat(width));
+    info!(target: "cron", "║ {} ║", padded);
+    info!(target: "cron", "╚{}╝", "═".repeat(width));
 }

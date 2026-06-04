@@ -19,6 +19,7 @@ pub struct Context {
     pub timestamp: String,
     pub bpp_id: Option<String>,
     pub bpp_uri: Option<String>,
+    pub ttl: String,
 }
 
 #[derive(Debug, Deserialize)]

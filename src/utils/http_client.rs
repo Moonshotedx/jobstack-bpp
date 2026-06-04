@@ -1,11 +1,12 @@
 use anyhow::Result;
 use reqwest::Client;
 use serde_json::Value;
-use tracing::error;
+use tracing::{error, info};
 
 pub async fn post_json(url: &str, payload: Value) -> Result<Value> {
     let client = Client::new();
     let res = client.post(url).json(&payload).send().await?;
+    info!("Sending POST request to {} ", url);
 
     let status = res.status();
 

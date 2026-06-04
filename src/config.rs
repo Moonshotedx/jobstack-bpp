@@ -13,6 +13,7 @@ pub struct HttpConfig {
 pub struct Bpp {
     pub id: String,
     pub caller_uri: String,
+    pub bpp_uri: String,
     pub domain: String,
     pub version: String,
     pub ttl: String,
@@ -23,12 +24,49 @@ pub struct ProviderDb {
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct Bap {
+    pub id: String,
+    pub caller_uri: String,
+    pub bap_uri: String,
+    pub domain: String,
+    pub version: String,
+    pub ttl: String,
+}
+#[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct RedisConfig {
+    pub url: String,
+}
+#[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct DbConfig {
+    pub url: String,
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct ProfileSchedule {
+    pub seconds: u64,
+}
+#[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct CronConfig {
+    pub fetch_profiles: ProfileSchedule,
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct AuthConfig {
+    pub x_api_key: String,
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct AppConfig {
     debug: bool,
     pub use_mock_bpp_response: bool,
     pub bpp: Bpp,
     pub http: HttpConfig,
     pub provider_db: ProviderDb,
+    pub bap: Bap,
+    pub redis: RedisConfig,
+    pub db: DbConfig,
+    pub cron: CronConfig,
+    pub auth: AuthConfig,
 }
 
 impl AppConfig {

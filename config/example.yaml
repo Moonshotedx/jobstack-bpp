@@ -1,33 +1,82 @@
+# BPP Onest Lite - Configuration Example
+# Copy this file to config/local.yaml or config/custom.yaml and adjust values
+
 # Enable or disable debug logging
 debug: true
 
-# Whether to use mock responses instead of calling a real BPP
+# Use mock BPP responses instead of real network calls (for testing)
 use_mock_bpp_response: false
 
+# Beckn Provider Platform (BPP) Configuration
 bpp:
-  # Unique identifier for your BPP (Seller App)
+  # Unique identifier for your BPP
   id: "bpp.example.com"
 
-  # Callback endpoint where your BPP will receive responses 
-  # (for requests it initiates into the Beckn network)
+  # Callback endpoint for incoming Beckn responses
   caller_uri: "https://example.com/bpp/webhook"
 
-  # Domain of the Beckn/ONDC network vertical (e.g., TRV10 = Travel, RET10 = Retail)
+  # Public BPP endpoint for network discovery
+  bpp_uri: "https://example.com/bpp/webhook"
+
+  # Beckn domain vertical (e.g., TRV10=Travel, RET10=Retail)
   domain: "ONDC:TRV10"
 
-  # Protocol version to use
+  # Protocol version
   version: "2.0.0"
 
-  # Time-to-live for requests (ISO8601 duration, e.g., PT30S = 30 seconds)
+  # Request TTL (ISO8601 duration)
   ttl: "PT30S"
 
+# Default Beckn Acquisition Platform (BAP) Configuration
+bap:
+  # Default BAP identifier for outbound requests
+  id: "bap.example.com"
+
+  # Default BAP callback endpoint
+  caller_uri: "https://example.com/bap/webhook"
+
+  # Default BAP public endpoint
+  bap_uri: "https://example.com/bap/webhook"
+
+  # Default BAP domain
+  domain: "ONDC:TRV10"
+
+  # Protocol version
+  version: "2.0.0"
+
+  # Request TTL
+  ttl: "PT30S"
+
+# HTTP Server Configuration
 http:
-  # The address your service will bind to (0.0.0.0 = all interfaces)
+  # Bind address (0.0.0.0 = all interfaces)
   address: 0.0.0.0
 
-  # Port on which your service will run
+  # Server port
   port: 3009
 
+# Provider Database (External API)
 provider_db:
-  # URI of the provider database or external API
-  db_uri: "https://jobs-demo.example.com/api/v1"
+  # URI of the provider catalog database
+  db_uri: "https://api.example.com/v1"
+
+# Redis Configuration
+redis:
+  # Redis connection URL
+  url: "redis://localhost:6379"
+
+# PostgreSQL Database Configuration
+db:
+  # Database connection string
+  url: "postgres://user:password@localhost:5432/bpp_onest_lite"
+
+# Background Job Schedule
+cron:
+  fetch_profiles:
+    # Interval in seconds for profile sync
+    seconds: 3600
+
+# Authentication
+auth:
+  # API key for external requests (optional)
+  x_api_key: "your-api-key-here"
